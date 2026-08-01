@@ -1,104 +1,121 @@
-
 # Quadrature Down Converter
 
-## 📌 Overview
-This project implements a **Quadrature Down Converter** using LTSpice to perform frequency translation of high-frequency signals to baseband. Such systems are widely used in **RF communication**, **modulation/demodulation**, and **signal processing**.
+An analog **Quadrature Down Converter** designed and simulated in **LTSpice** for translating high-frequency RF signals to low-frequency baseband signals. The project demonstrates the complete signal chain using a **Bubba Oscillator**, **MOSFET-based Mixer**, and **Cascaded Low-Pass Filters** to generate **In-phase (I)** and **Quadrature (Q)** outputs.
 
-The design consists of three main stages:
-- Oscillator
-- Mixer
-- Low-Pass Filter
+> 📄 For detailed circuit analysis, derivations, and simulation results, refer to the **Project Report** included in this repository.
+
+---
+
+## 📌 Overview
+
+Quadrature Down Converters are widely used in RF receivers and communication systems to shift high-frequency signals to lower frequencies for easier processing.
+
+This project implements the complete down-conversion process using analog circuit blocks and validates the design through transient and FFT simulations in LTSpice.
 
 ---
 
 ## ⚙️ System Architecture
 
-The complete system performs:
-\[
-f_{out} = f_{in} - f_{osc}
-\]
+```text
+            RF Input
+               │
+               ▼
+      Bubba Oscillator
+     (Sin & Cos Outputs)
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+      Mixer         Mixer
+        │             │
+        ▼             ▼
+   Low Pass Filter  Low Pass Filter
+        │             │
+        ▼             ▼
+      I Output      Q Output
+```
 
-It generates **in-phase (I)** and **quadrature (Q)** components by mixing the input signal with cosine and sine local oscillator signals.
+The output frequency follows:
+
+```text
+f_out = |f_in − f_LO|
+```
 
 ---
 
 ## 🧩 Components
 
-### 🔹 1. Oscillator (Bubba Oscillator)
-- Generates sine and cosine waves
-- Frequency: ~100 kHz  
-- Phase difference: ~90°  
-- Built using op-amp based RC phase-shift network
+### 🔹 Bubba Oscillator
+- Generates sine and cosine local oscillator signals
+- Frequency: **100.2 kHz**
+- Approximately **90° phase difference**
+
+### 🔹 MOSFET Mixer
+- NMOS operating in the **triode region**
+- Produces both **sum** and **difference** frequency components through analog multiplication
+
+### 🔹 Cascaded Low-Pass Filter
+- Two-stage RC filter
+- Cutoff frequency: **≈2 kHz**
+- Removes unwanted high-frequency mixing products while preserving the baseband signal
 
 ---
 
-### 🔹 2. Mixer
-- Implemented using a **MOSFET operating in triode region**
-- Performs signal multiplication:
-\[
-V_{out} \propto V_{in} \cdot V_{osc}
-\]
-- Produces sum and difference frequencies:
-\[
-f_{out} = f_{in} \pm f_{osc}
-\]
+## 📐 Design Specifications
+
+| Parameter | Value |
+|-----------|-------|
+| Simulation Tool | LTSpice XVII |
+| Oscillator Frequency | 100.2 kHz |
+| Input Frequency | 95–105 kHz |
+| Example Input | 102 kHz |
+| Output Frequency | ≈2 kHz |
+| LPF Cutoff | ≈2 kHz |
 
 ---
 
-### 🔹 3. Low-Pass Filter (LPF)
-- RC filter with cutoff ≈ 2 kHz  
-- Removes high-frequency components  
-- Extracts the baseband signal:
-\[
-f_{out} = f_{in} - f_{osc}
-\]
+## 📊 Results
 
----
-
-## 📊 Simulation Results
-
-- Input frequency: ~102 kHz  
-- Oscillator frequency: ~100 kHz  
-- Output frequency: ~2 kHz  
-
-### Key Observations:
-- Successful frequency down-conversion  
-- I and Q signals exhibit ~90° phase difference  
-- FFT confirms dominant component at baseband frequency  
-- Higher frequency components are effectively attenuated  
+- Successfully down-converted RF signals to baseband.
+- Generated stable **In-phase (I)** and **Quadrature (Q)** outputs.
+- Achieved approximately **92° phase difference** between the final I/Q signals.
+- FFT analysis confirmed suppression of unwanted frequency components and successful extraction of the desired baseband signal.
 
 ---
 
 ## 🛠️ Tools Used
-- **LTSpice** (circuit design and simulation)
 
----
-
-## 📁 Files
-- LTSpice schematic / netlist
-- Simulation plots (transient + FFT)
-- Project report
+- LTSpice XVII
+- Analog CMOS Circuit Design
+- Transient Analysis
+- FFT Analysis
 
 ---
 
 ## 📚 Applications
-- RF receivers  
-- Software Defined Radio (SDR)  
-- Communication systems (QAM, PSK)  
-- Signal demodulation  
+
+- RF Receivers
+- Software Defined Radio (SDR)
+- QAM & PSK Demodulation
+- Wireless Communication Systems
 
 ---
 
-## 🧠 Key Learnings
-- Design of oscillator, mixer, and filter circuits  
-- Frequency translation using signal multiplication  
-- Quadrature signal generation (I/Q demodulation)  
-- Circuit simulation and validation using FFT  
+## 📁 Repository Contents
+
+```
+├── Oscillator
+├── Mixer
+├── LowPassFilter
+├── CompleteCircuit
+├── SimulationPlots
+├── ProjectReport.pdf
+└── README.md
+```
 
 ---
 
 ## 👨‍💻 Authors
-- Anish Toshniwal  
-- Vedant Zope  
-- Kavya Pandey
 
+- **Anish Toshniwal**
+- **Vedant Zope**
+- **Kavya Pandey**
