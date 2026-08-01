@@ -1,16 +1,16 @@
 # Quadrature Down Converter
 
-An analog **Quadrature Down Converter** designed and simulated in **LTSpice** for translating high-frequency RF signals to low-frequency baseband signals. The project demonstrates the complete signal chain using a **Bubba Oscillator**, **MOSFET-based Mixer**, and **Cascaded Low-Pass Filters** to generate **In-phase (I)** and **Quadrature (Q)** outputs.
+An analog **Quadrature Down Converter** designed and simulated in **LTSpice** for translating high-frequency RF signals into low-frequency baseband signals. The project implements a complete analog signal chain using a **Bubba Oscillator**, **MOSFET-based Mixer**, and **Cascaded Low-Pass Filters** to generate **In-phase (I)** and **Quadrature (Q)** outputs.
 
-> 📄 For detailed circuit analysis, derivations, and simulation results, refer to the **Project Report** included in this repository.
+> 📄 A detailed explanation of the design, mathematical derivations, and simulation results can be found in the accompanying project report.
 
 ---
 
 ## 📌 Overview
 
-Quadrature Down Converters are widely used in RF receivers and communication systems to shift high-frequency signals to lower frequencies for easier processing.
+Quadrature Down Converters are widely used in RF receivers and communication systems to translate high-frequency signals to lower frequencies, enabling easier signal processing and demodulation.
 
-This project implements the complete down-conversion process using analog circuit blocks and validates the design through transient and FFT simulations in LTSpice.
+This project demonstrates the complete down-conversion process in LTSpice and validates the design using transient and FFT analysis.
 
 ---
 
@@ -34,10 +34,10 @@ This project implements the complete down-conversion process using analog circui
       I Output      Q Output
 ```
 
-The output frequency follows:
+The output frequency is given by
 
 ```text
-f_out = |f_in − f_LO|
+fout = |fin − fLO|
 ```
 
 ---
@@ -45,18 +45,17 @@ f_out = |f_in − f_LO|
 ## 🧩 Components
 
 ### 🔹 Bubba Oscillator
-- Generates sine and cosine local oscillator signals
-- Frequency: **100.2 kHz**
-- Approximately **90° phase difference**
+- Generates quadrature sine and cosine signals
+- Oscillation frequency: **100.2 kHz**
+- Phase difference: **≈90°**
 
 ### 🔹 MOSFET Mixer
 - NMOS operating in the **triode region**
 - Produces both **sum** and **difference** frequency components through analog multiplication
 
-### 🔹 Cascaded Low-Pass Filter
-- Two-stage RC filter
+### 🔹 Cascaded RC Low-Pass Filter
 - Cutoff frequency: **≈2 kHz**
-- Removes unwanted high-frequency mixing products while preserving the baseband signal
+- Removes high-frequency mixing products while preserving the desired baseband signal
 
 ---
 
@@ -64,30 +63,41 @@ f_out = |f_in − f_LO|
 
 | Parameter | Value |
 |-----------|-------|
-| Simulation Tool | LTSpice XVII |
-| Oscillator Frequency | 100.2 kHz |
-| Input Frequency | 95–105 kHz |
-| Example Input | 102 kHz |
+| Simulation Software | LTSpice XVII |
+| Local Oscillator Frequency | 100.2 kHz |
+| Input Frequency Range | 95–105 kHz |
+| Example Input Frequency | 102 kHz |
 | Output Frequency | ≈2 kHz |
-| LPF Cutoff | ≈2 kHz |
+| Low-Pass Filter Cutoff | ≈2 kHz |
 
 ---
 
-## 📊 Results
+## 📊 Simulation Results
 
 - Successfully down-converted RF signals to baseband.
 - Generated stable **In-phase (I)** and **Quadrature (Q)** outputs.
 - Achieved approximately **92° phase difference** between the final I/Q signals.
-- FFT analysis confirmed suppression of unwanted frequency components and successful extraction of the desired baseband signal.
+- FFT analysis verified suppression of unwanted frequency components and extraction of the desired baseband signal.
 
 ---
 
 ## 🛠️ Tools Used
 
 - LTSpice XVII
-- Analog CMOS Circuit Design
 - Transient Analysis
 - FFT Analysis
+
+---
+
+## 📁 Repository Contents
+
+| File | Description |
+|------|-------------|
+| `QuadDownConverter.asc` | LTSpice schematic of the complete quadrature down converter |
+| `Quadrature Down Converter.pdf` | Project report containing circuit design, derivations, and simulation results |
+| `TSMC_180nm.txt` | CMOS transistor model used for MOSFET simulation |
+| `UA741.301` | UA741 operational amplifier model |
+| `README.md` | Project documentation |
 
 ---
 
@@ -97,20 +107,7 @@ f_out = |f_in − f_LO|
 - Software Defined Radio (SDR)
 - QAM & PSK Demodulation
 - Wireless Communication Systems
-
----
-
-## 📁 Repository Contents
-
-```
-├── Oscillator
-├── Mixer
-├── LowPassFilter
-├── CompleteCircuit
-├── SimulationPlots
-├── ProjectReport.pdf
-└── README.md
-```
+- Intermediate Frequency (IF) Signal Processing
 
 ---
 
